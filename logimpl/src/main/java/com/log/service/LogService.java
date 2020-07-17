@@ -79,7 +79,7 @@ public class LogService {
 			int minute = ctime.getMinute();
 			int second = ctime.getSecond();
 			
-			if(fr == 10) {
+			if(fr == 2) {
 				List<Notification_> logTypeUser = notificationDAO.findAllByType("critical");
 				logTypeUser.stream().forEach(u -> {
 					u.setNotificationMsg(notificationMsg);
@@ -88,22 +88,22 @@ public class LogService {
 				fr = 0;//reset fre
 			}
 			
-			if(fr >= 10 && stime.isBefore(ctime)) {
-				int h = stime.getHour();
-				int m = stime.getMinute();
-				int s = stime.getSecond();
-				if((hour == h) && (minute == m) && (second - s) >= 100) {
-					//notify
-					String logType = "";
-					List<Notification_> logTypeUser = notificationDAO.findAllByType(logType);
-					logTypeUser.stream().forEach(u -> {
-						u.setNotificationMsg(notificationMsg);
-						notificationDAO.save(u);
-					});
-				}
-				stime = ctime;//updte start time
-				fr = 0;//reset fre
-			}
+// 			if(fr >= 10 && stime.isBefore(ctime)) {
+// 				int h = stime.getHour();
+// 				int m = stime.getMinute();
+// 				int s = stime.getSecond();
+// 				if((hour == h) && (minute == m) && (second - s) >= 100) {
+// 					//notify
+// 					String logType = "";
+// 					List<Notification_> logTypeUser = notificationDAO.findAllByType(logType);
+// 					logTypeUser.stream().forEach(u -> {
+// 						u.setNotificationMsg(notificationMsg);
+// 						notificationDAO.save(u);
+// 					});
+// 				}
+// 				stime = ctime;//updte start time
+// 				fr = 0;//reset fre
+// 			}
 		}
 		System.out.println("notifyCritical end :");
 	}
